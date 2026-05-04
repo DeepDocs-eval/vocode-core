@@ -39,11 +39,9 @@ Stay tuned, more dials to come here soon!
 
 # Conversation Speed
 
-`StreamingConversation` also exposes a parameter called `conversation_speed`, which controls the length of endpointing pauses, i.e. how long the bot will wait before responding to the human. This includes normal utterances from the human as well as interruptions.
+`StreamingConversation` also exposes a parameter called `speed_coefficient`, which controls the length of endpointing pauses, i.e. how long the bot will wait before responding to the human. This includes normal utterances from the human as well as interruptions.
 
-The amount of time the bot waits inversely scales with the `conversation_speed` value. So a bot with `conversation_speed` of 2 responds in half the time compared to a `conversation_speed` of 1. Likewise a `conversation_speed` of 0.5 means the bot takes twice as long to respond.
-
-```python
+The amount of time the bot waits inversely scales with the `speed_coefficient` value. So a bot with `speed_coefficient` of 2 responds in half the time compared to a `speed_coefficient` of 1. Likewise a `speed_coefficient` of 0.5 means the bot takes twice as long to respond.
 conversation = StreamingConversation(
     speed_coefficient=2
     ...

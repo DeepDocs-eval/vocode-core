@@ -182,7 +182,7 @@ def call_phone_number(input: str) -> str:
             prompt_preamble=prompt,
             initial_message=BaseMessage(text=initial_message),
         ),
-        logger=logging.Logger("call_phone_number"),
+        telephony_config=TelephonyConfig(),  # Required; replace with appropriate config (e.g. TwilioTelephonyConfig)
     )
     LOOP.run_until_complete(call.start())
     while True:
@@ -202,7 +202,6 @@ telephony_server = TelephonyServer(
     config_manager=config_manager,
     inbound_call_configs=[],
     events_manager=EventsManager(),
-    logger=logger,
 )
 
 app.include_router(telephony_server.get_router())

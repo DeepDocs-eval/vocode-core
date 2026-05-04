@@ -32,20 +32,17 @@ Each agent should override the `generate_response()` async method to support str
 The `generate_response()` method returns an `AsyncGenerator` of tuples containing each message/sentence and a boolean for whether that message can be interrupted by the human speaking. You can automatically create this generator by yielding instead of returning (see example below).
 
 We will now define our `BrokenRecordAgent`. Since we simply return the same message each time, we can return and yield that message in `respond()` and `generate_response()`, respectively:
-```python
 class BrokenRecordAgent(RespondAgent[BrokenRecordAgentConfig]):
 
-    # is_interrupt is True when the human has just interrupted the bot's last response
-    def respond(
-        self, human_input, is_interrupt: bool = False
+    async def respond(
+        self, human_input, conversation_id: str, is_interrupt: bool = False
     ) -> tuple[Optional[str], bool]:
-        return self.agent_config.message
+        return self.agent_config.message, False
 
     async def generate_response(
-        self, human_input, is_interrupt: bool = False
-    ) -> AsyncGenerator[Tuple[str, bool], None]: # message and whether or not the message is interruptible
+        self, human_input, conversation_id: str, is_interrupt: bool = False, bot_was_in_medias_res: bool = False
+    ) -> AsyncGenerator[GeneratedResponse, None]:
         """Returns a generator that yields the agent's response one sentence at a time."""
-        yield self.agent_config.message, False
-```
+        yield GeneratedResponse(message=BaseMessage(text=self.agent_config.message), is_interruptible=False)
 
 See [our other agent implementations](https://github.com/vocodedev/vocode-python/tree/main/vocode/streaming/agent) for more examples!
