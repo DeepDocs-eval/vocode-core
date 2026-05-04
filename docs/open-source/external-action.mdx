@@ -17,7 +17,7 @@ The Vocode Agent will determine after each turn of conversation if its the ideal
 
 #### Overview
 
-- `processing_mode`: We currently only support `muted`, which makes the agent silent while processing the request.
+- `processing_mode` (@ExternalActionProcessingMode, required): We currently only support `muted`, which makes the agent silent while processing the request.
 
 - `name`: the name of the external action -- this has no impact on the functionality of action itself.
 
@@ -151,8 +151,8 @@ Vocode expects responses from the user’s API in JSON in the following format:
 Response {
   result: Any
   agent_message: Optional[str] = None
+  success: bool
 }
-```
 
 - `result` is a payload containing the result of the action on the user’s side, and can be in any format
 - `agent_message` optionally contains a message that will be synthesized into audio and sent back to the phone call. Note this means the LLM will not be queried to send a message (see [Configuring the External Action](/open-source/external-action#configuring-an-external-action-with-executeexternalactionvocodeactionconfig) above for more info)

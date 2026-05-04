@@ -28,13 +28,7 @@ To use a transcriber, you need to create a configuration object for the transcri
 
 ```python
 from vocode.streaming.telephony.hosted.inbound_call_server import InboundCallServer
-from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, PunctuationEndpointingConfig
-
-server = InboundCallServer(
-    ...
-    transcriber_config=DeepgramTranscriberConfig.from_telephone_input_device(
-      endpointing_config=DeepgramEndpointingConfig()
-    ),
+from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, DeepgramEndpointingConfig
     ...
 )
 ```
@@ -44,7 +38,7 @@ In this example, the `DeepgramTranscriberConfig.from_telephone_input_device()` m
 ### Example 2: Using Deepgram in `StreamingConversation` locally
 
 ```python
-from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, PunctuationEndpointingConfig
+from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, DeepgramEndpointingConfig
 from vocode.streaming import StreamingConversation
 
 async def main():
@@ -57,6 +51,10 @@ async def main():
         transcriber=DeepgramTranscriber(
             DeepgramTranscriberConfig.from_input_device(
                 microphone_input, endpointing_config=DeepgramEndpointingConfig()
+            )
+        ),
+        ...
+    )
             )
         ),
         ...
